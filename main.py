@@ -49,6 +49,6 @@ def profile(link: str):
     
 
     discount = soup.find("span", attrs={'class': 'a-size-large a-color-price savingPriceOverride aok-align-center reinventPriceSavingsPercentageMargin savingsPercentage'})
-    discount = discount.string.strip().replace(',', '')
+    
     
     return {"Title":title_string,"Price":price,"Discount":discount}
