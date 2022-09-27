@@ -29,13 +29,13 @@ def profile(link: str):
 
 
     price = soup.find("span", attrs={'class': 'a-offscreen'})
-    price = price.string
+    price = str(price)
     title = soup.find("span",attrs={"id": 'productTitle'})
-    title_value = title.string
+    title_value = str(title)
  
-    title_string = title_value.strip().replace(',', '')
-    price_string = price.strip().replace(',', '')
-    print(title_string)
+    # title_string = title_value.strip().replace(',', '')
+    
+    print(title_value)
     # price = price.split()[0]
     discount = soup.find("span", attrs={'class': 'a-size-large a-color-price savingPriceOverride aok-align-center reinventPriceSavingsPercentageMargin savingsPercentage'}).string.strip().replace(',', '')
     # except AttributeError:
@@ -44,4 +44,4 @@ def profile(link: str):
     #     except:
     #         rating = "NA"
     
-    return {"Title":title_string,"Price":price_string,"Discount":discount}
+    return {"Title":title_value,"Price":price,"Discount":discount}
