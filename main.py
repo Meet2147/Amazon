@@ -26,27 +26,13 @@ def profile(link: str):
 
     soup = BeautifulSoup(response.content, "lxml")
 
-
-    price = soup.find("span", attrs={'class': 'a-offscreen'})
-    price = str(price)
-    try:
-        title = soup.find("span",attrs={"id": 'productTitle'})
-        title_value = title.string
+    title = soup.find("span",attrs={"id": 'productTitle'})
+    title_value = title.string
  
-        title_string = title_value.strip().replace(',', '')
-           
-    except AttributeError:
- 
-        title_string = "NA"
- 
-        print("product Title = ", title_string)
-    try:
-        price = soup.find("span", attrs={'class': 'offscreen'}).string.strip().replace(',', '')
-        # we are omitting unnecessary spaces
-        # and commas form our string
-    except AttributeError:
-        price = "NA"
+    title_string = title_value.strip().replace(',', '')
+    print("product Title = ", title_string)
     
+    price = soup.find("span", attrs={'class': 'offscreen'}).string.strip().replace(',', '')
 
     discount = soup.find("span", attrs={'class': 'a-size-large a-color-price savingPriceOverride aok-align-center reinventPriceSavingsPercentageMargin savingsPercentage'})
     
