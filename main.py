@@ -28,11 +28,13 @@ def profile(link: str):
     soup = BeautifulSoup(response.content, "lxml")
 
 
-    price = soup.find("span", attrs={'class': 'a-offscreen'}).string.strip().replace(',', '')
+    price = soup.find("span", attrs={'class': 'a-offscreen'})
+    price = price.string
     title = soup.find("span",attrs={"id": 'productTitle'})
     title_value = title.string
  
     title_string = title_value.strip().replace(',', '')
+    price_string = price.strip().replace(',', '')
     print(title_string)
     # price = price.split()[0]
     discount = soup.find("span", attrs={'class': 'a-size-large a-color-price savingPriceOverride aok-align-center reinventPriceSavingsPercentageMargin savingsPercentage'}).string.strip().replace(',', '')
@@ -42,4 +44,4 @@ def profile(link: str):
     #     except:
     #         rating = "NA"
     
-    return {"Title":title_string,"Price":price,"Discount":discount}
+    return {"Title":title_string,"Price":price_string,"Discount":discount}
