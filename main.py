@@ -1,6 +1,7 @@
 
 from curses import meta
 import requests
+import lxml
 from bs4 import BeautifulSoup
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
