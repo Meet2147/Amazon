@@ -1,5 +1,3 @@
-
-from curses import meta
 import requests
 import lxml
 from bs4 import BeautifulSoup
@@ -30,18 +28,26 @@ def profile(link: str):
 
     price = soup.find("span", attrs={'class': 'a-offscreen'})
     price = str(price)
-    title = soup.find("span",attrs={"id": 'productTitle'})
-    title_value = str(title)
+    try:
+        title = soup.find("span",attrs={"id": 'productTitle'})
+        title_value = title.string
  
-    # title_string = title_value.strip().replace(',', '')
+        title_string = title_value.strip().replace(',', '')
+           
+    except AttributeError:
+ 
+        title_string = "NA"
+ 
+        print("product Title = ", title_string)
+    try:
+        price = soup.find("span", attrs={'id': 'priceblock_ourprice'}).string.strip().replace(',', '')
+        # we are omitting unnecessary spaces
+        # and commas form our string
+    except AttributeError:
+        price = "NA"
     
-    print(title_value)
-    # price = price.split()[0]
+
     discount = soup.find("span", attrs={'class': 'a-size-large a-color-price savingPriceOverride aok-align-center reinventPriceSavingsPercentageMargin savingsPercentage'}).string.strip().replace(',', '')
-    # except AttributeError:
-    #     try:
-    #         rating = soup.find("span", attrs={'class': 'a-icon-alt'}).string.strip().replace(',', '')
-    #     except:
-    #         rating = "NA"
+  
     
-    return {"Title":title_value,"Price":price,"Discount":discount}
+    return {"Title":title_string,"Price":price,"Discount":discount}
