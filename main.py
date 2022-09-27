@@ -1,4 +1,5 @@
 import requests
+
 import lxml
 from bs4 import BeautifulSoup
 from fastapi import FastAPI
@@ -40,14 +41,14 @@ def profile(link: str):
  
         print("product Title = ", title_string)
     try:
-        price = soup.find("span", attrs={'id': 'priceblock_ourprice'}).string.strip().replace(',', '')
+        price = soup.find("span", attrs={'class': 'offscreen'}).string.strip().replace(',', '')
         # we are omitting unnecessary spaces
         # and commas form our string
     except AttributeError:
         price = "NA"
     
 
-    discount = soup.find("span", attrs={'class': 'a-size-large a-color-price savingPriceOverride aok-align-center reinventPriceSavingsPercentageMargin savingsPercentage'}).string.strip().replace(',', '')
-  
+    discount = soup.find("span", attrs={'class': 'a-size-large a-color-price savingPriceOverride aok-align-center reinventPriceSavingsPercentageMargin savingsPercentage'})
+    discount = discount.string.strip().replace(',', '')
     
     return {"Title":title_string,"Price":price,"Discount":discount}
