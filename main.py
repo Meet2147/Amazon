@@ -1,5 +1,4 @@
 import requests
-
 import lxml
 from bs4 import BeautifulSoup
 from fastapi import FastAPI
@@ -28,15 +27,20 @@ def profile(link: str):
     soup2 = BeautifulSoup(soup.prettify(), "html.parser")
     
 
-    title = soup2.find('span',{'class':'a-size-large product-title-word-break'}).text
+    title = soup2.find('span',{'class':'a-size-large product-title-word-break'})
+    title = title.get_text()
     title = title.strip()
     print("product Title = ", title)
     
-    price = soup2.find('span',{'class':'a-offscreen'}).text
+    price = soup2.find('span',{'class':'a-offscreen'})
+    
+    price = price.get_text()
     price = price.strip()[1:]
     
 
-    discount = soup.find("span", {'class': 'a-size-large a-color-price savingPriceOverride aok-align-center reinventPriceSavingsPercentageMargin savingsPercentage'}).text
+    discount = soup.find("span", {'class': 'a-size-large a-color-price savingPriceOverride aok-align-center reinventPriceSavingsPercentageMargin savingsPercentage'})
+    
+    discount = discount.get_text()
     discount = discount.strip()
     
     return {"Title":title,"Price":price, "Discount":discount}
