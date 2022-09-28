@@ -28,7 +28,7 @@ def profile(link: str):
     soup2 = BeautifulSoup(soup.prettify(), "html.parser")
     
 
-    title = soup2.find(id='productTitle').get_text()
+    title = soup2.find(id='productTitle').text
     title = title.strip()
     print("product Title = ", title)
     
